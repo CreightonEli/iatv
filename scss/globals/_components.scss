@@ -1,4 +1,5 @@
 html {
+    scroll-behavior: smooth;
     margin: 0;
     color: var(--platinum);
     background-color: var(--onyx);
@@ -12,7 +13,7 @@ header {
     position: fixed;
     top: 0;
     margin: 0;
-    width: 100%;
+    width: 100vw;
     background-color: black;
     height: 56px;
     border-radius: 0 0 1em 1em;
@@ -32,10 +33,6 @@ main {
     margin: 0 auto;
 }
 
-// section {
-//     width: 50%;
-// }
-
 a {
     color: var(--platinum);
     text-decoration: none;
@@ -52,6 +49,7 @@ a:hover {
     list-style: none;
     border-top: 1px solid var(--platinum);
     padding: 12px 0;
+    overflow: hidden;
 }
 
 .resultNum {
@@ -61,6 +59,7 @@ a:hover {
 
 // search header things
 #search-section {
+    min-width: 380px;
     max-width: 480px;
     margin: 0 auto;
     padding: 55px 12px 0;
@@ -112,11 +111,10 @@ a:hover {
     padding: 66px 0 0;
     background-color: var(--details-color);
     border-radius: 0 0 1em 1em;
+    width: 600px;
 }
 #details-container {
-    // position: fixed;
     padding: 0 10px 0;
-    // max-width: 750px;
     overflow-y: scroll;
     overflow-x: hidden;
 }

@@ -72,7 +72,7 @@ function displayDetails() {
     console.log(selectionObj)
 
     detailsContainer.innerHTML = `
-    <div id="video-container"><video id="video-player" src="${selectionURL}" type="video/mp4"></video></div>
+    <div id="video-container"><video id="video-player" src="${selectionURL}" type="video/mp4" controls></video></div>
     <h1>${selectionTitle}</h1>
     <h2>${selectionCreator}</h2>
     <p>${selectionDesc}</p>

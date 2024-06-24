@@ -1,0 +1,21 @@
+@media (max-width: 900px) {
+    main {
+        display: block;
+    }
+    #details-section {
+        height: inherit;
+    }
+    #search-section {
+        border-radius: 0 0 1em 1em;
+    }
+}
+@media (max-width: 640px) {
+    #details-section {
+        width: 100vw;
+        border-radius: 0;
+    }
+    #search-section {
+        min-width: 0;
+        max-width: none;
+    }
+}

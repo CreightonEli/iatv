@@ -2,23 +2,33 @@
 <html>
 <head>
     <title>Wayback Theater</title>
+    <!-- Styles -->
     <link rel="stylesheet" href="dist/style.css">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <!-- JavaScript -->
     <script src="script.js" defer></script>
 </head>
 <body>
     <header>
         <div id="search-container">
-            <input type="text" id="search-input" placeholder="Search for movies...">
-            <button id="search-button">Search</button>
+            <input type="text" id="search-input" placeholder="Search for something...">
+            <button id="search-button"><i class="ph ph-magnifying-glass"></i></button>
         </div>
     </header>
-    <main>
-        <section id="search-section">
-            <div id="results-container"></div>
-        </section>
-        <section id="details-section">
-            <div id="details-container"></div>
-        </section>
-    </main>
+    <div class="flex-container">
+        <main>
+            <section id="details-section">
+                <div id="details-container"></div>
+            </section>
+            <section id="search-section">
+                <div id="results-container"></div>
+            </section>
+        </main>
+    </div>
 </body>
 </html>

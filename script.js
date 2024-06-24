@@ -118,10 +118,12 @@ async function getDetails(identifier){
         for (let i = 0; i < data.files.length; i++) {
             if (data.files[i].name.endsWith('.mp4') && !data.files[i].name.endsWith('.ia.mp4')) {
                 fileName = data.files[i].name
+                fileName = fileName.replace("#", "%23")
                 break
             }
         }
-
+        
+        // use the following link for URL encoding things: https://www.w3schools.com/tags/ref_urlencode.ASP
         // example: "https://ia802301.us.archive.org/16/items/the-end-of-evangelion-vhs/End%20of%20Evangelion%20(VKLL).mp4"
         selectionObj = data
         selectionURL = `https://${data.d2}${data.dir}/${fileName}`

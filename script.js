@@ -16,7 +16,7 @@ function displayResults(movies) {
     resultsContainer.innerHTML = '' // Clear previous results
 
     if (movies.length === 0) {
-        resultsContainer.innerHTML = '<p>No movies found.</p>'
+        resultsContainer.innerHTML = '<p>Nothing found.</p>'
         return
     }
 

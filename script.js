@@ -3,12 +3,14 @@ const searchInput = document.getElementById('search-input')
 const searchButton = document.getElementById('search-button')
 const searchSection = document.getElementById('search-section')
 const resultsContainer = document.getElementById('results-container')
+const pageControls = document.getElementById("page-controls")
 const detailsSection = document.getElementById('details-section')
 const detailsContainer = document.getElementById('details-container')
 
 let searchResultNum = 1
 let selectionObj = ""
 let selectionURL = ""
+let thumbnailURL = ""
 let selectionTitle = ""
 let selectionCreator = ""
 let selectionDesc = ""
@@ -64,37 +66,60 @@ async function search() {
     }
 }
 
-function displayResults(movies) {
+// Makes another request to the api to get thumbnail images for the search results
+// which does also make it a lot slower. Not sure if it's worth it so I'm going to 
+// make a seperate branch for it. 
+// async function getThumbnail(identifier) {
+//     const url = `https://archive.org/metadata/${identifier}`
+
+//     try {
+//         const response = await fetch(url)
+//         const data = await response.json()
+
+//         for (let i = 0; i < data.files_count; i++) {
+//             if (data.files[i].name == "__ia_thumb.jpg") {
+//                 thumbnailURL = `https://${data.d2}${data.dir}/__ia_thumb.jpg`
+//                 return thumbnailURL
+//             }
+//         }
+//         return "Thumbnail not found..."
+
+//     } catch (error) {
+//         console.error('Error fetching thumbnail: ', error)
+//         // Handle errors (display an error message, etc.)
+//     }
+// }
+
+/*async*/ function displayResults(movies) {
     resultsContainer.innerHTML = '' // Clear previous results
-    console.log(movies)
+    pageControls.innerHTML = `<i id="loading-icon" class="ph ph-circle-notch"></i>`
+
     if (movies.length === 0) {
         resultsContainer.innerHTML = '<h2>Nothing found.</h2><h3>Try searching for something else.</h3>'
+        pageControls.innerHTML = ''
         return
     }
 
-    movies.forEach(movie => {
-        let movieElement = document.createElement("li")        
-        console.log(movie)
-        
-        if (movie.date == undefined) {
-            movieElement.innerHTML = `<h3><a href="#top" onclick="getDetails('${movie.identifier}')"><span class="resultNum">${searchResultNum}.</span> ${movie.title}</a></h3><h4>${movie.creator}</h4>`
-        }
-        else {
-            movieElement.innerHTML = `<h3><a href="#top" onclick="getDetails('${movie.identifier}')"><span class="resultNum">${searchResultNum}.</span> ${movie.title}</a></h3><h4>${movie.creator} | ${movie.date}</h4>`
-        }
+    for (const movie of movies) {
+        let movieElement = document.createElement("li")
+
+        // get thumbnail
+        // thumbnailURL = await getThumbnail(movie.identifier)
+        // movieElement.innerHTML = `<a href="#top" onclick="getDetails('${movie.identifier}')"><img class="thumbnail" src="${thumbnailURL}"></a><div><h3><a href="#top" onclick="getDetails('${movie.identifier}')"><span class="resultNum">${searchResultNum}.</span> ${movie.title}</a></h3><h4>${movie.creator}</h4></div>`
+
+        movieElement.innerHTML = `<div><h3><a href="#top" onclick="getDetails('${movie.identifier}')"><span class="resultNum">${searchResultNum}.</span> ${movie.title}</a></h3><h4>${movie.creator}</h4></div>`
         resultsContainer.appendChild(movieElement)
         searchResultNum++
-    });
+    }
     // create next page buttons at bottom
     maxPages = parseInt(resultsTotal / 100) + 1
 
-    let pageControls = document.createElement("div")
-    pageControls.setAttribute("id", "page-controls")
-    if (pageNum == maxPages && pageNum == 1) {}
+    if (pageNum == maxPages && pageNum == 1) {
+        pageControls.innerHTML = ''
+    }
     else {
         pageControls.innerHTML = `<button id="page-back-btn" onclick="pageBack()"><i class="ph ph-caret-left"></i></button><p>Page <span id="page-num">${pageNum}</span> of <span id="max-pages">${maxPages}</span></p><button id="page-next-btn" onclick="pageNext()"><i class="ph ph-caret-right"></i></button>`
     }
-    resultsContainer.appendChild(pageControls)
 }
 
 // handles pagination
@@ -125,8 +150,6 @@ async function pageNext() {
 
 // displays the details of the selected result
 function displayDetails() {
-    console.log(selectionObj)
-
     detailsContainer.innerHTML = `
     <div id="video-container"><video id="video-player" src="${selectionURL}" type="video/mp4" controls></video></div>
     <h1>${selectionTitle}</h1>
@@ -162,7 +185,6 @@ function changeSource(fileName) {
 // gathers useful information on the selected result
 async function getDetails(identifier){
     const url = `https://archive.org/metadata/${identifier}`
-
 
     try {
         const response = await fetch(url)

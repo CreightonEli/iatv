@@ -1,0 +1,14 @@
+{
+    "name": "IAtv",
+    "short_name": "IAtv",
+    "icons": [
+        {
+            "src": "/android-chrome-48x48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#343c3e",
+    "background_color": "#343c3e",
+    "display": "standalone"
+}

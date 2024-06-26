@@ -14,9 +14,12 @@ header {
     top: 0;
     margin: 0;
     width: 100vw;
-    background-color: black;
+    background-color: #121212d4;
     height: 56px;
-    border-radius: 0 0 1em 1em;
+    border-radius: 0 0 25px 25px;
+    backdrop-filter: blur(20px);
+    animation: 1s ease-in-out drop-in;
+    z-index: 1;
 }
 
 ::selection {
@@ -41,20 +44,33 @@ a:hover {
     cursor: pointer;
 }
 
-#results-container > li:nth-child(1) {
-    border: none;
+// welcome container
+#welcome-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    margin: 200px auto;
+    left: 0;
+    right: 0;
+    transition: 355ms cubic-bezier(.9,.03,.69,.22);
+    animation: fade-in 1s;
+}
+#welcome-container.animate {
+    transform: translateY(-450px);
 }
 
-#results-container li {
-    list-style: none;
-    border-top: 1px solid var(--platinum);
-    padding: 12px 0;
-    overflow: hidden;
+#logo {
+    margin: 0 auto;
 }
 
-.resultNum {
-    font-size: 10pt;
-    color: var(--cadet-gray);
+#welcome-container #title {
+    margin: 0 auto;
+    font-family: "Honk", system-ui;
+    font-size: 30pt;
+    filter: drop-shadow(0px -52px 97px #ff5c0c) hue-rotate(180deg);
+}
+#welcome-container #title #sub {
+    font-size: 22pt;
 }
 
 // search header things
@@ -62,8 +78,17 @@ a:hover {
     min-width: 380px;
     max-width: 480px;
     margin: 0 auto;
-    padding: 55px 12px 0;
+    padding: 55px 12px 12px;
     background-color: var(--search-color);
+    border-radius: 0 0 1em 1em;
+    opacity: 0;
+    transition: 1s 1s;
+}
+#search-section.show-results {
+    display: inherit;
+    opacity: 1;
+}
+#search-section.show-details {
     border-radius: 0 0 1em 0;
 }
 
@@ -81,6 +106,7 @@ a:hover {
     background-color: var(--onyx);
     color: var(--platinum);
     font-size: 16pt;
+    transition: 355ms;
 }
 #search-container input:focus {
     outline: none;
@@ -95,6 +121,7 @@ a:hover {
     padding: 3px 10px 2px;
     color: var(--platinum);
     font-size: 16pt;
+    transition: 355ms;
 }
 #search-container button:focus {
     outline: none;
@@ -105,6 +132,65 @@ a:hover {
     background-color: gray;
 }
 
+// Search results area thingz
+#results-container {
+    width: 100%;
+}
+#results-container > li:nth-child(1) {
+    border: none;
+}
+
+#results-container li {
+    list-style: none;
+    border-top: 1px solid var(--platinum);
+    padding: 12px 6px;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    transition: 355ms;
+}
+#results-container li:hover {
+    background-color: #6d6d6d2c;
+}
+
+.resultNum {
+    font-size: 10pt;
+    color: var(--cadet-gray);
+}
+
+#page-controls {
+    display: flex;
+}
+
+#page-controls button {
+    margin: 5px auto 10px;
+    padding: 3px 8px 2px;
+    border: 1px solid #6d6d6d;
+    border-radius: 10em;
+    background-color: #4d4f4f;
+    color: var(--platinum);
+    font-size: 16pt;
+    transition: 355ms;
+}
+#page-controls button:hover {
+    cursor: pointer;
+    background-color: gray;
+}
+
+#page-controls button#page-back-btn {
+    margin-right: 16px;
+}
+
+#page-controls button#page-next-btn {
+    margin-left: 16px;
+}
+#page-controls p #page-num {
+    margin: 0 2px 0 0;
+}
+#page-controls p #max-pages {
+    margin: 0 0 0 3px;
+}
+
+// Details area stuff
 #details-section {
     display: none;
     height: 100%;
@@ -112,6 +198,7 @@ a:hover {
     background-color: var(--details-color);
     border-radius: 0 0 1em 1em;
     width: 600px;
+    animation: fade-in 1s;
 }
 #details-container {
     padding: 0 10px 0;
@@ -130,6 +217,11 @@ video {
     width: 100%;
 }
 
+#description-container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 // file list in detail section
 #file-list-wrapper {
     margin: 20px 0 0;
@@ -143,7 +235,15 @@ video {
 
 #file-list li {
     padding: 2px 0 2px 5px;
+    overflow-wrap: anywhere;
+    transition: 355ms;
+}
+#file-list li:hover {
+    background-color: #d6d6d62c;
 }
 #file-list li:nth-child(even) {
     background-color: var(--search-color);
+}
+#file-list li:nth-child(even):hover {
+    background-color: #d6d6d62c;
 }

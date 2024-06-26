@@ -5,8 +5,14 @@
     #details-section {
         height: inherit;
     }
+    #results-container h2 {
+        margin: 0;
+    }
     #search-section {
         border-radius: 0 0 1em 1em;
+    }
+    #search-section.show-details {
+        padding: 8px 12px 8px;
     }
 }
 @media (max-width: 640px) {
@@ -16,6 +22,6 @@
     }
     #search-section {
         min-width: 0;
-        max-width: none;
+        max-width: 93vw;
     }
 }

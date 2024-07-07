@@ -156,7 +156,7 @@ function displayDetails() {
     <h2>${selectionCreator}</h2>
     <div id="description-container"><p>${selectionDesc}</p></div>
     <div id="file-list-wrapper">
-        <h3>Video Files:</h3>
+        <h3>Other Videos:</h3>
         <ul id="file-list"></ul>
     </div>
     `
@@ -166,7 +166,8 @@ function displayDetails() {
     for (let i = 0; i < selectionObj.files_count; i++) {
         if (selectionObj.files[i].name.endsWith('.mp4') && !selectionObj.files[i].name.endsWith('.ia.mp4')) {
             let fileListItem = document.createElement("li")
-            fileListItem.innerHTML = `<a href="#top" onclick="changeSource('${selectionObj.files[i].name}')">${selectionObj.files[i].name}</a>`
+            console.log(selectionObj.files)
+            fileListItem.innerHTML = `<a href="#top" onclick="changeSource('${selectionObj.files[i].name}')">${selectionObj.files[i].name.slice(0, -4)}</a>`
             fileList.appendChild(fileListItem)
         }
     }    

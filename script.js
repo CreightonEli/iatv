@@ -14,6 +14,7 @@ let thumbnailURL = ""
 let selectionTitle = ""
 let selectionCreator = ""
 let selectionDesc = ""
+let selectionId = ""
 let resultsTotal = 0
 let pageNum = 1
 let maxPages = 0
@@ -154,12 +155,45 @@ function displayDetails() {
     <div id="video-container"><video id="video-player" src="${selectionURL}" type="video/mp4" controls></video></div>
     <h1>${selectionTitle}</h1>
     <h2>${selectionCreator}</h2>
+    <!--<a href="${selectionURL}" id="download-video"><i class="ph ph-download-simple"></i></a>-->
     <div id="description-container"><p>${selectionDesc}</p></div>
     <div id="file-list-wrapper">
         <h3>Other Videos:</h3>
         <ul id="file-list"></ul>
     </div>
     `
+    // Download button nonsense code //
+    // 
+    // // Attach the event listener for the download functionality
+    // document.querySelector('#download-video').addEventListener('click', function(event) {
+    //     event.preventDefault(); // Prevent default behavior
+
+    //     const videoUrl = event.currentTarget.href; // Get the external video URL
+    //     const videoTitle = document.querySelector('h1').textContent.trim(); // Use the video title as the filename
+
+    //     // Fetch the video data as a Blob
+    //     fetch(videoUrl, {
+    //         mode: 'cors' // Ensure CORS mode is enabled
+    //     })
+    //     .then(response => response.blob())
+    //     .then(blob => {
+    //         const downloadLink = document.createElement('a');
+    //         const objectUrl = window.URL.createObjectURL(blob);
+
+    //         downloadLink.href = objectUrl;
+    //         downloadLink.download = videoTitle + '.mp4'; // Set the file name with proper extension
+    //         document.body.appendChild(downloadLink);
+    //         downloadLink.click(); // Trigger the download
+    //         downloadLink.remove(); // Clean up
+
+    //         // Release the object URL after download
+    //         window.URL.revokeObjectURL(objectUrl);
+    //     })
+    //     .catch(err => {
+    //         console.error('Error fetching and downloading the video:', err);
+    //     });
+    // });
+
 
     // create file list in case for all .mp4 files in the selected object
     const fileList = document.getElementById('file-list')
@@ -202,12 +236,13 @@ async function getDetails(identifier){
                 break
             }
         }
-        
+        console.log(data)
         selectionObj = data
         selectionURL = `https://${data.d2}${data.dir}/${fileName}`
         selectionTitle = data.metadata.title
         selectionCreator = data.metadata.creator
         selectionDesc = data.metadata.description
+        selectionId = data.metadata.identifier
 
         searchSection.classList.add("show-details")
 
